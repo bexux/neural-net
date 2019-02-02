@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>My Card List</h1>
+  {% for card in cards %}
+    <p>{{ card.name }} - {{ card.manaCost }} for a {{ card.power }}/{{ card.toughness }}
+      {% for subtype in card.subtypes %}
+        {{ subtype }}
+      {% endfor %}
+      {% for type in card.types %}
+        {{ type }}
+      {% endfor %}
+    </p>
+  {% endfor %}
+{% endblock content %}
