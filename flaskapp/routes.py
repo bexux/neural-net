@@ -1,7 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
 from flaskapp import app, db, bcrypt
 from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm
-from flaskapp.models import User, Card
+from flaskapp.models.users import User
+from flaskapp.models.cards import Card
 from flask_login import login_user, current_user, logout_user, login_required
 
 # Dummy Data
@@ -62,16 +63,12 @@ def logout():
 @app.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
-    form = UpdateAccountForm()
+    form = UpdateAccountForm(obj=current_user)
     if form.validate_on_submit():
-        current_user.username = form.username.data
-        current_user.email = form.email.data
+        form.populate_obj(current_user)
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('account'))
-    elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.email.data = current_user.email
     return render_template('account.html', title='Account', form=form)
 
 @app.route("/upload")
