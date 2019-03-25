@@ -12,3 +12,5 @@ instance/
 venv/
 ENV/
 
+# Old Iterations
+_old/
