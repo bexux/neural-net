@@ -71,10 +71,10 @@ def account():
         return redirect(url_for('account'))
     return render_template('account.html', title='Account', form=form)
 
-@app.route("/upload")
+@app.route("/card/new")
 @login_required
-def upload():
-    return render_template('upload.html')
+def new_card():
+    return render_template('upload.html', title='Add Card')
 
 @app.route("/card-list")
 @login_required

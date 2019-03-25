@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, NumberRange
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flaskapp.models.users import User
 
@@ -51,3 +51,12 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('User name or email already exists.')
+
+class CardSearchForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    submit = SubmitField('Search')
+
+class CardAddForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(1, 99)])
+    submit = SubmitField('Add Card')

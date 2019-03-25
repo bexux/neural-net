@@ -16,8 +16,8 @@ def get_or_create(type_name, ModelClass):
         db.session.add(card_type)
         return card_type
 
-def upload_some_cards():
-    json_file = open('mtgcard.json')
+def upload_some_cards(mtgcardfile):
+    json_file = open(mtgcardfile)
     carddata = json.load(json_file)
     # firstItem = carddata[0]
     # secondItem = carddata[1]

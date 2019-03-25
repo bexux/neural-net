@@ -1,4 +1,15 @@
-# neural-net
-Creating a Neural Network
+# Now an OCR project
+...built on top of a Flask.app
 
-Run the mtg-api.py file to get a card list json file to work with.
+# To import dependencies:
+pip install -r requirements.txt 
+
+# To run the Flask App:
+export FLASK_APP=flaskapp
+flask run
+
+# To create the database
+flask database create
+
+# Import card list
+flask database import-cards
