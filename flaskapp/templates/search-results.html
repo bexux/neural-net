@@ -1,4 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h1>Search Results</h1>
+  <h1>Search Results:</h1>
+  {% for card in cards %}
+    <p>{{card.name}}</p>
+  {% endfor %}
 {% endblock content %}

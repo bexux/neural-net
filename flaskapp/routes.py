@@ -76,7 +76,7 @@ def account():
 def cardNew():
     form = SearchForm()
     if request.method == 'POST' and form.validate_on_submit():
-        return redirect((url_for('searchResults', query=form.search.data)))
+        return redirect((url_for('searchResults', c=form.search.data)))
         # search_term = form.query.data
     return render_template('upload.html', title='Add Card', form=form)
 
@@ -88,4 +88,5 @@ def cardList():
 @app.route("/search-results", methods=['GET', 'POST'])
 @login_required
 def searchResults():
-    return render_template('search-results.html', title='Search Results')
+    cards = Card.query.filter(Card.name.contains(request.args['c']))
+    return render_template('search-results.html', title='Search Results', cards=cards)
