@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from flaskapp import app, db, bcrypt
-from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from flaskapp.forms import CardAddForm, RegistrationForm, LoginForm, SearchForm, UpdateAccountForm
 from flaskapp.models.users import User
 from flaskapp.models.cards import Card
 from flask_login import login_user, current_user, logout_user, login_required
@@ -71,12 +71,21 @@ def account():
         return redirect(url_for('account'))
     return render_template('account.html', title='Account', form=form)
 
-@app.route("/card/new")
+@app.route("/card/new", methods=['GET', 'POST'])
 @login_required
-def new_card():
-    return render_template('upload.html', title='Add Card')
+def cardNew():
+    form = SearchForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        return redirect((url_for('searchResults', query=form.search.data)))
+        # search_term = form.query.data
+    return render_template('upload.html', title='Add Card', form=form)
 
 @app.route("/card-list")
 @login_required
 def cardList():
     return render_template('card-list.html', cards=cards)
+
+@app.route("/search-results", methods=['GET', 'POST'])
+@login_required
+def searchResults():
+    return render_template('search-results.html', title='Search Results')

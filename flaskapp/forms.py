@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, NumberRange
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flaskapp.models.users import User
 
@@ -58,5 +58,9 @@ class CardSearchForm(FlaskForm):
 
 class CardAddForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(1, 99)])
+    # quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(1, 99)])
     submit = SubmitField('Add Card')
+
+class SearchForm(FlaskForm):
+    search = StringField('Enter a card name', validators=[DataRequired()])
+    submit = SubmitField('Search')
