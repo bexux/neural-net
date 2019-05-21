@@ -5,6 +5,8 @@
 pip install -r requirements.txt 
 
 # To run the Flask App:
+source mtg-env/bin/activate
+cd neural-net
 export FLASK_APP=flaskapp
 flask run
 
