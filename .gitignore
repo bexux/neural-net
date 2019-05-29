@@ -2,6 +2,7 @@
 .vscode/
 *.pyc
 *.db
+*.csv
 
 # Flask stuff:
 instance/
@@ -11,6 +12,7 @@ instance/
 .venv
 venv/
 ENV/
+mtg_nn.egg-info/
 
 # Old Iterations
 _old/
