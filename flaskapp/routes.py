@@ -94,5 +94,5 @@ def searchResults():
 
 @app.route("/card/new")
 def cardNew():
-    print "Hello"
+    print("Hello")
     return "nothing"

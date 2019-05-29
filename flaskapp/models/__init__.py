@@ -11,7 +11,7 @@ import json
 def get_or_create(type_name, ModelClass):
     try:
         return ModelClass.query.filter_by(name=type_name).one()
-    except NoResultFound, e:
+    except NoResultFound as e:
         card_type = ModelClass(name=type_name)
         db.session.add(card_type)
         return card_type
@@ -33,7 +33,7 @@ def upload_some_cards(mtgcardfile):
     for card in carddata:
         if card['name'] in added:
             continue
-        print card['name']
+        print(card['name'])
         added.add(card['name'])
         new_entry = Card(
             name=card['name'],
