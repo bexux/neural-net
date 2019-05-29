@@ -1,7 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
   <h1>Search Results:</h1>
-  {% for card in cards %}
-    <p>{{card.name}}</p>
-  {% endfor %}
+  <ul class="list-group">
+    {% for card in cards %}
+    <a href="#" class="list-group-item">
+      <div class="list-img"><img src="{{ card.image }}" alt="{{ card.name }}"></div>
+      <div class="list-name">{{card.name}}</div>
+      <button class="btn btn-primary">Add</button>
+    </a>
+    {% endfor %}
+  </ul>
+<script type=text/javascript>
+afterJQ.push( function() { 
+  $('.list-group-item').bind('click', function() {
+    $.getJSON('/addCard', function(data) {
+        // do nothing
+      });
+      return false;
+    });
+ });
+</script>
 {% endblock content %}

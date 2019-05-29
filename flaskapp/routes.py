@@ -71,22 +71,28 @@ def account():
         return redirect(url_for('account'))
     return render_template('account.html', title='Account', form=form)
 
-@app.route("/card/new", methods=['GET', 'POST'])
+# This is the user's card list?
+@app.route("/card-list")
 @login_required
-def cardNew():
+def cardList():
+    return render_template('card-list.html', cards=cards)
+
+@app.route("/search/card", methods=['GET', 'POST'])
+@login_required
+def searchCard():
     form = SearchForm()
     if request.method == 'POST' and form.validate_on_submit():
         return redirect((url_for('searchResults', c=form.search.data)))
         # search_term = form.query.data
     return render_template('upload.html', title='Add Card', form=form)
 
-@app.route("/card-list")
-@login_required
-def cardList():
-    return render_template('card-list.html', cards=cards)
-
-@app.route("/search-results", methods=['GET', 'POST'])
+@app.route("/search/card/results", methods=['GET', 'POST'])
 @login_required
 def searchResults():
     cards = Card.query.filter(Card.name.contains(request.args['c']))
     return render_template('search-results.html', title='Search Results', cards=cards)
+
+@app.route("/card/new")
+def cardNew():
+    print "Hello"
+    return "nothing"
