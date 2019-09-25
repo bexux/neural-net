@@ -23,8 +23,7 @@ cards = [
 
 @app.route("/")
 def home():
-    cards = Card.query.all()
-    return render_template('index.html', cards=cards)
+    return render_template('index.html')
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
