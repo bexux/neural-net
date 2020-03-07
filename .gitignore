@@ -13,6 +13,11 @@ instance/
 venv/
 ENV/
 mtg_nn.egg-info/
+mtg-env-3/
 
 # Old Iterations
 _old/
+
+# Misc
+mtgcard.json
+flaskapp/site.db

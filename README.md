@@ -10,6 +10,7 @@ source mtg-env-3/bin/activate
 python run.py
 
 # To create the database
+export FLASK_APP=flaskapp  
 flask database create
 
 # Import card list

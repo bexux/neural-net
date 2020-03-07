@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>My Deck List</h1>
+  {% for deck in decks %}
+    <p>{{ deck.name }}</p>
+  {% endfor %}
+{% endblock content %}
