@@ -10,6 +10,8 @@ user_card_assoc = db.Table('user_card_assoc',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
 )
 
+# TODO: add deck assoc
+
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
 

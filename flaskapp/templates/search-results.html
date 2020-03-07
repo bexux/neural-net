@@ -6,15 +6,19 @@
     <a href="#" class="list-group-item">
       <div class="list-img"><img src="{{ card.image }}" alt="{{ card.name }}"></div>
       <div class="list-name">{{card.name}}</div>
+      <!-- need qty field -->
+      <!-- TODO: this should be dynamic text-->
       <button class="btn btn-primary">Add</button>
     </a>
     {% endfor %}
   </ul>
+  <!-- TODO: should say update if you already have the card, deleted it if you make it 0. So it needs qty -->
 <script type=text/javascript>
 afterJQ.push( function() { 
   $('.list-group-item').bind('click', function() {
     $.getJSON('/addCard', function(data) {
         // do nothing
+        console.log('add card')
       });
       return false;
     });

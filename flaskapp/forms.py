@@ -52,15 +52,11 @@ class UpdateAccountForm(FlaskForm):
             if user:
                 raise ValidationError('User name or email already exists.')
 
-class CardSearchForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    submit = SubmitField('Search')
-
 class CardAddForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     # quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(1, 99)])
     submit = SubmitField('Add Card')
 
-class SearchForm(FlaskForm):
+class CardSearchForm(FlaskForm):
     search = StringField('Enter a card name', validators=[DataRequired()])
     submit = SubmitField('Search')

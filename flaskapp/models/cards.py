@@ -1,5 +1,10 @@
 from flaskapp import db
 
+card_color_assoc = db.Table('card_color_assoc',
+    db.Column('card_id', db.Integer, db.ForeignKey('card.id')),
+    db.Column('card_color', db.Integer, db.ForeignKey('card_color.id'))
+)
+
 card_type_assoc = db.Table('card_type_assoc',
     db.Column('card_id', db.Integer, db.ForeignKey('card.id')),
     db.Column('card_type', db.Integer, db.ForeignKey('card_type.id'))
@@ -10,6 +15,12 @@ card_sub_type_assoc = db.Table('card_sub_type_assoc',
     db.Column('card_type', db.Integer, db.ForeignKey('card_sub_type.id'))
 )
 
+class CardColor(db.Model):
+    __tablename__ = 'card_color'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), unique=True, nullable=False)
+    
 class CardType(db.Model):
     __tablename__ = 'card_type'
 
@@ -30,7 +41,12 @@ class Card(db.Model):
     power = db.Column(db.Integer)
     toughness = db.Column(db.Integer)
     manaCost = db.Column(db.String(10))
+    cmc = db.Column(db.Integer)
+    rarity = db.Column(db.String(80))
+    setName = db.Column(db.String(120))
+    setShortName = db.Column(db.String(80))
     image = db.Column(db.String(80), nullable=False, default='default_card.jpg')
+    colors = db.relationship('CardColor', secondary=card_color_assoc, backref=db.backref('cards'), lazy='dynamic')
     card_types = db.relationship('CardType', secondary=card_type_assoc, backref=db.backref('cards'), lazy='dynamic')
     card_sub_types = db.relationship('CardSubType', secondary=card_sub_type_assoc, backref=db.backref('cards'), lazy='dynamic')
  

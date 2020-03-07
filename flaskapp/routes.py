@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from flaskapp import app, db, bcrypt
-from flaskapp.forms import CardAddForm, RegistrationForm, LoginForm, SearchForm, UpdateAccountForm
+from flaskapp.forms import CardAddForm, RegistrationForm, LoginForm, CardSearchForm, UpdateAccountForm
 from flaskapp.models.users import User
 from flaskapp.models.cards import Card
 from flask_login import login_user, current_user, logout_user, login_required
@@ -17,7 +17,7 @@ cards = [
         ],
         'power': '4', 
         'toughness': '4',
-        'manaCost': '{3}{W}{W}'
+        'manaCost': '3WW'
     }
 ]
 
@@ -70,28 +70,34 @@ def account():
         return redirect(url_for('account'))
     return render_template('account.html', title='Account', form=form)
 
-# This is the user's card list?
 @app.route("/card-list")
 @login_required
 def cardList():
+    # needs to be based on user
+    # cards = Card.query.filter_by(current_user)
     return render_template('card-list.html', cards=cards)
+
+@app.route("/deck-list")
+@login_required
+def deckList():
+    return render_template('deck-list.html', decks=decks)
 
 @app.route("/search/card", methods=['GET', 'POST'])
 @login_required
 def searchCard():
-    form = SearchForm()
+    form = CardSearchForm()
     if request.method == 'POST' and form.validate_on_submit():
         return redirect((url_for('searchResults', c=form.search.data)))
-        # search_term = form.query.data
+        search_term = form.query.data
     return render_template('upload.html', title='Add Card', form=form)
 
-@app.route("/search/card/results", methods=['GET', 'POST'])
+@app.route("/search/card/results", methods=['GET'])
 @login_required
 def searchResults():
     cards = Card.query.filter(Card.name.contains(request.args['c']))
     return render_template('search-results.html', title='Search Results', cards=cards)
 
-@app.route("/card/new")
-def cardNew():
-    print("Hello")
-    return "nothing"
+# @app.route("/card/new")
+# def cardNew():
+#     print("Hello")
+#     return "nothing"

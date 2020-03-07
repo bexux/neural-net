@@ -1,5 +1,5 @@
 from flaskapp import db
-from flaskapp.models.cards import Card, CardType, CardSubType
+from flaskapp.models.cards import Card, CardColor, CardType, CardSubType
 from sqlalchemy.orm.exc import NoResultFound
 import json
 
@@ -40,7 +40,12 @@ def upload_some_cards(mtgcardfile):
             power=card.get('power'),
             toughness=card.get('toughness'),
             manaCost=card['manaCost'],
+            cmc=card['cmc'],
+            rarity=card['rarity'],
+            setName=card['setName'],
+            setShortName=card['set'],
             image=card.get('imageUrl'),
+            colors=[get_or_create(type_name, CardColor) for type_name in card['colors']],
             card_types=[get_or_create(type_name, CardType) for type_name in card['types']],
             card_sub_types=[get_or_create(type_name, CardSubType) for type_name in card['subtypes']]
         )
